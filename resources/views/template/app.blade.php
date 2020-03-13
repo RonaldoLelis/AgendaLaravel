@@ -22,8 +22,8 @@
           Contatos
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Novo</a>
-          <a class="dropdown-item" href="#">Listar</a>
+          <a class="dropdown-item" href="{{ url('pessoas/novo') }} ">Novo</a>
+          <a class="dropdown-item" href="{{ url('pessoas') }}">Listar</a>
         </div>
       </li>      
   </div>
