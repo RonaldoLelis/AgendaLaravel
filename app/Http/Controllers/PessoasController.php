@@ -9,10 +9,12 @@ use Illuminate\Http\Request;
 class PessoasController extends Controller
 {
     private $telefones_controller;
+    private $pessoa;
 
     public function __construct(TelefonesController $telefones_controller)
     {
         $this->telefones_controller = $telefones_controller;
+        $this->pessoa = new Pessoa();
     }
 
     public function index(){
@@ -43,6 +45,41 @@ class PessoasController extends Controller
             
         return redirect('/pessoas')->with('message', 'Contato salvo com sucesso!');
    
+    }
+
+    public function excluirView($id){
+
+        return view('pessoas.delete',[
+            'pessoa' => $this->getPessoa($id)
+        ]);
+
+    }
+
+    public function editarView($id){
+
+        return view('pessoas.edit', [
+            'pessoa' => $this->getPessoa($id)
+        ]);
+    }
+
+    public function destroy($id){
+
+        $this->getPessoa($id)->delete();
+        return redirect('/pessoas')->with('success', 'Contato excluído!');
+    }
+
+    public function update(Request $request){
+
+        $pessoa = $this->getPessoa($request->id);
+        $pessoa->update($request->all());
+        return redirect('/pessoas');
+
+    }
+
+
+    protected function getPessoa($id){
+
+        return $this->pessoa->find($id);
     }
 
 
